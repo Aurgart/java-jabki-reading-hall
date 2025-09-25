@@ -1,13 +1,9 @@
-package library;
+package model;
 
-import books.Book;
-import books.BookList;
 import exceptions.BookNotFound;
 import exceptions.UserNotFound;
 import exceptions.WrongParamOfBook;
 import exceptions.WrongParamOfUser;
-import users.User;
-import users.UserList;
 
 import java.util.ArrayList;
 import java.util.List;

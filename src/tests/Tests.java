@@ -1,11 +1,11 @@
 package tests;
 
-import books.Book;
-import books.BookList;
+import model.Book;
+import model.BookList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import users.User;
-import users.UserList;
+import model.User;
+import model.UserList;
 
 import java.util.List;
 

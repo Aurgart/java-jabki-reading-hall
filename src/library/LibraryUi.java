@@ -1,5 +1,7 @@
 package library;
 
+import model.Library;
+
 import java.time.Year;
 import java.util.Scanner;
 
@@ -32,7 +34,7 @@ public class LibraryUi {
                 case "10" -> getUser(3);
                 default -> nextMove();
             }
-
+            nextMove();
         }
     }
 
@@ -79,12 +81,11 @@ public class LibraryUi {
             System.out.println(e.getMessage());
         }
         int res = this.lib.addBook(name, author, year, cnt, cnt);
-        if(res == 1){
+        if (res == 1) {
             System.out.println("Книга добавлена.");
-        }else{
+        } else {
             System.out.println("Произошла ошибка.");
         }
-        printMenu();
     }
 
     /**
@@ -98,12 +99,12 @@ public class LibraryUi {
         System.out.println("Введите почту:");
         email = scanner.nextLine().trim();
         int res = this.lib.addUser(name, email);
-        if(res == 1){
-            System.out.println("Пользователь добавлен.");
-        }else{
+        if (res == 1) {
+            System.out.println("Книга добавлена.");
+        } else {
             System.out.println("Произошла ошибка.");
         }
-        printMenu();
+        System.out.println("Пользователь добавлен.");
     }
 
     /**
@@ -133,14 +134,16 @@ public class LibraryUi {
             }
             this.lib.getBookByYear(year);
         }
-        nextMove();
     }
 
     /**
      * Следующий шаг
      */
     private void nextMove() {
+        System.out.println("Нажмите любую клавишу чтобы продолжить.");
+        String t = scanner.nextLine().trim();
         System.out.println("Выберите пункт из меню.");
+        printMenu();
     }
 
     /**
@@ -170,6 +173,5 @@ public class LibraryUi {
             input = scanner.nextLine().trim();
             this.lib.getUserByEmail(input);
         }
-        nextMove();
     }
 }
