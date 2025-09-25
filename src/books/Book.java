@@ -28,7 +28,13 @@ public class Book {
     // конструктор полный.
     public Book(String title, String author, int year, int totalCopies, int availableCopies) {
         this.id = count.incrementAndGet();
+        if(title.isBlank()) {
+            throw new WrongParamOfBook("Пустое название!");
+        }
         this.title = title;
+        if(author.isBlank()) {
+            throw new WrongParamOfBook("У книги обязательно должен быть автор!");
+        }
         this.author = author;
         if(year < 1950 || year > Year.now().getValue() ){
             throw new WrongParamOfBook("Это библиотека а не музей!");

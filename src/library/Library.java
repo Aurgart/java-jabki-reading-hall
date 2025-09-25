@@ -4,6 +4,8 @@ import books.Book;
 import books.BookList;
 import exceptions.BookNotFound;
 import exceptions.UserNotFound;
+import exceptions.WrongParamOfBook;
+import exceptions.WrongParamOfUser;
 import users.User;
 import users.UserList;
 
@@ -33,12 +35,24 @@ public class Library {
         this.userList.listAllUsers();
     }
 
-    public void addBook(String title, String author, int year, int totalCopies, int availableCopies) {
-        this.libraryList.addBookToList(title, author, year, totalCopies, availableCopies);
+    public int addBook(String title, String author, int year, int totalCopies, int availableCopies) {
+        try {
+            this.libraryList.addBookToList(title, author, year, totalCopies, availableCopies);
+            return 1;
+        }catch (WrongParamOfBook e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
-    public void addUser(String name, String email) {
-        this.userList.addUser(name, email);
+    public int addUser(String name, String email) {
+        try {
+            this.userList.addUser(name, email);
+            return 1;
+        }catch (WrongParamOfUser e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
     }
 
     public void getBookByName(String name) {

@@ -1,5 +1,7 @@
 package users;
 
+import exceptions.WrongParamOfUser;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class User {
@@ -10,6 +12,12 @@ public class User {
 
     public User(String name, String email){
         this.id = count.incrementAndGet();
+        if(name.isBlank()){
+            throw new WrongParamOfUser("Имя не может быть пустым!");
+        }
+        if(email.isBlank()){
+            throw new WrongParamOfUser("Почта не может быть пустой!");
+        }
         this.name = name;
         this.email = email;
     }

@@ -78,8 +78,12 @@ public class LibraryUi {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        this.lib.addBook(name, author, year, cnt, cnt);
-        System.out.println("Книга добавлена.");
+        int res = this.lib.addBook(name, author, year, cnt, cnt);
+        if(res == 1){
+            System.out.println("Книга добавлена.");
+        }else{
+            System.out.println("Произошла ошибка.");
+        }
         printMenu();
     }
 
@@ -93,8 +97,12 @@ public class LibraryUi {
         name = scanner.nextLine().trim();
         System.out.println("Введите почту:");
         email = scanner.nextLine().trim();
-        this.lib.addUser(name, email);
-        System.out.println("Пользователь добавлен.");
+        int res = this.lib.addUser(name, email);
+        if(res == 1){
+            System.out.println("Пользователь добавлен.");
+        }else{
+            System.out.println("Произошла ошибка.");
+        }
         printMenu();
     }
 
