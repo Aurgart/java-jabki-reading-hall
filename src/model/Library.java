@@ -1,9 +1,9 @@
 package model;
 
-import exceptions.BookNotFound;
-import exceptions.UserNotFound;
-import exceptions.WrongParamOfBook;
-import exceptions.WrongParamOfUser;
+import exceptions.BookNotFoundException;
+import exceptions.UserNotFoundException;
+import exceptions.WrongParamOfBookExcpetion;
+import exceptions.WrongParamOfUserException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Library {
         try {
             this.libraryList.addBookToList(title, author, year, totalCopies, availableCopies);
             return 1;
-        }catch (WrongParamOfBook e){
+        }catch (WrongParamOfBookExcpetion e){
             System.out.println(e.getMessage());
             return 0;
         }
@@ -45,7 +45,7 @@ public class Library {
         try {
             this.userList.addUser(name, email);
             return 1;
-        }catch (WrongParamOfUser e){
+        }catch (WrongParamOfUserException e){
             System.out.println(e.getMessage());
             return 0;
         }
@@ -55,7 +55,7 @@ public class Library {
         List<Book> bl = new ArrayList<>();
         try {
             bl = this.libraryList.getBookByName(name);
-        } catch (BookNotFound e) {
+        } catch (BookNotFoundException e) {
             System.out.println(e.getMessage());
         }
         for (Book bok : bl) {
@@ -67,7 +67,7 @@ public class Library {
         List<Book> bl = new ArrayList<>();
         try {
             bl = this.libraryList.getBookByAuthor(author);
-        } catch (BookNotFound e) {
+        } catch (BookNotFoundException e) {
             System.out.println(e.getMessage());
         }
         for (Book bok : bl) {
@@ -79,7 +79,7 @@ public class Library {
         List<Book> bl = new ArrayList<>();
         try {
             bl = this.libraryList.getBookByYear(year);
-        } catch (BookNotFound e) {
+        } catch (BookNotFoundException e) {
             System.out.println(e.getMessage());
         }
         for (Book bok : bl) {
@@ -90,7 +90,7 @@ public class Library {
     public void getUserById(int id) {
         try {
             this.userList.getUserByID(id).userInfo();
-        } catch (UserNotFound e) {
+        } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -99,7 +99,7 @@ public class Library {
         List<User> usr = new ArrayList<>();
         try {
             usr = this.userList.getUserByName(name);
-        } catch (UserNotFound e) {
+        } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         }
         for (User tmp : usr) {
@@ -111,7 +111,7 @@ public class Library {
         List<User> usr = new ArrayList<>();
         try {
             usr = this.userList.getUserByEmail(email);
-        } catch (UserNotFound e) {
+        } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         }
         for (User tmp : usr) {
