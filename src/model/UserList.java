@@ -28,6 +28,7 @@ public class UserList {
         }
         return tmp;
     }
+
     public List<User> getUserByEmail(String email) {
         List<User> tmp = this.userList.values().stream().filter(User -> User.getEmail().toUpperCase().contains(email.toUpperCase())).toList();
         if (tmp.isEmpty()) {
@@ -35,6 +36,7 @@ public class UserList {
         }
         return tmp;
     }
+
     public User getUserByID(int id) {
         User retUser = this.userList.get(id);
         if (retUser == null) {

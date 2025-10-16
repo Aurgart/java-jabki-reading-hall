@@ -53,4 +53,13 @@ public class BookList {
         }
     }
 
+    public Book getBookByID(int id) {
+        Book retBook = this.bookList.get(id);
+        if (retBook == null) {
+            throw new BookNotFoundException("Не найдено книги с ид: " + id);
+        }
+        return retBook;
+    }
+
+
 }

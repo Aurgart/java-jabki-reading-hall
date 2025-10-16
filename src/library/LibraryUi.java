@@ -1,5 +1,7 @@
 package library;
 
+import exceptions.BookQuantityException;
+import exceptions.WrongLoanParamsException;
 import model.Library;
 
 import java.time.Year;
@@ -32,6 +34,12 @@ public class LibraryUi {
                 case "8" -> getUser(1);
                 case "9" -> getUser(2);
                 case "10" -> getUser(3);
+                case "11" -> getLoans(0);
+                case "12" -> loanBook();
+                case "13" -> returnBook();
+                case "14" -> getLoans(1);
+                case "15" -> getLoans(2);
+                case "16" -> getLoans(3);
                 default -> nextMove();
             }
             nextMove();
@@ -53,6 +61,12 @@ public class LibraryUi {
         System.out.println("8. Найти пользователя по id");
         System.out.println("9. Найти пользователя по имени");
         System.out.println("10. Найти пользователя по почте");
+        System.out.println("11. Список всех выдач книг");
+        System.out.println("12. Выдать книгу");
+        System.out.println("13. Вернуть книгу");
+        System.out.println("14. Выдачи по пользователю.");
+        System.out.println("15. Выдачи по книге");
+        System.out.println("16. Просроченные выдачи");
         System.out.println("0. Выйти");
     }
 
@@ -129,7 +143,6 @@ public class LibraryUi {
                 year = Integer.parseInt(scanner.nextLine().trim());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                nextMove();
                 return;
             }
             this.lib.getBookByYear(year);
@@ -160,7 +173,6 @@ public class LibraryUi {
                 id = Integer.parseInt(scanner.nextLine().trim());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                nextMove();
                 return;
             }
             this.lib.getUserById(id);
@@ -174,4 +186,83 @@ public class LibraryUi {
             this.lib.getUserByEmail(input);
         }
     }
+
+    /**
+     * Список всех выдач книг
+     *
+     * @param mode 0- все/ 1 - по user  /2 по книге /3 просроченные.
+     */
+    private void getLoans(int mode) {
+        if (mode == 0) {
+            this.lib.printAllLoanInfo();
+            return;
+        } else if (mode == 3) {
+            this.lib.printLateLoanInfo();
+            return;
+        }
+        int id;
+        System.out.println("Введите ид " + ((mode == 1) ? "пользователя " : " книги ") + ":");
+        try {
+            id = Integer.parseInt(scanner.nextLine().trim());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        if (mode == 1) {
+            this.lib.getLoansByID(0, id);
+        } else if (mode == 2) {
+            this.lib.getLoansByID(1, id);
+        }
+    }
+
+    private void loanBook() {
+        int userId;
+        System.out.println("Введите ид пользователя:");
+        try {
+            userId = Integer.parseInt(scanner.nextLine().trim());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        int bookId;
+        System.out.println("Введите ид книги:");
+        try {
+            bookId = Integer.parseInt(scanner.nextLine().trim());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        try {
+            lib.loanBook(userId, bookId);
+        } catch (WrongLoanParamsException | BookQuantityException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+    }
+
+    private void returnBook() {
+        int userId;
+        System.out.println("Введите ид пользователя:");
+        try {
+            userId = Integer.parseInt(scanner.nextLine().trim());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        int bookId;
+        System.out.println("Введите ид книги:");
+        try {
+            bookId = Integer.parseInt(scanner.nextLine().trim());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        try {
+            lib.returnBook(userId, bookId);
+        } catch (WrongLoanParamsException | BookQuantityException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+    }
+
 }

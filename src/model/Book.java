@@ -76,22 +76,16 @@ public class Book {
     }
 
     public String bookInfo() {
-        return this.title + " , " + this.author + ", " + this.year + "г.";
+        return this.title + " , " + this.author + ", " + this.year + "г." + "кол-во доступных копий: " + this.availableCopies;
     }
 
-    public String getBook(int copies) {
+    public void getBook(int copies) {
         if (this.availableCopies >= copies) {
             this.availableCopies -= copies;
         }
-        return "Взяли книгу: " + bookInfo();
     }
 
-    public String returnBook(int copies) {
-        if (copies > 0 && (copies + this.availableCopies) <= this.totalCopies) {
-            this.availableCopies += copies;
-        } else {
-            return "Книг больше чем было, лишнего не надо.";
-        }
-        return "Книги вернули, кол-во доступных книг: " + this.availableCopies;
+    public void returnBook() {
+        this.availableCopies ++;
     }
 }
