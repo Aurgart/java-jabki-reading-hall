@@ -1,6 +1,11 @@
 package model;
 
-import exceptions.*;
+import exceptions.BookQuantityException;
+import exceptions.BookNotFoundException;
+import exceptions.WrongParamOfUserException;
+import exceptions.UserNotFoundException;
+import exceptions.WrongLoanParamsException;
+import exceptions.WrongParamOfBookException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -38,7 +43,7 @@ public class Library {
         try {
             this.libraryList.addBookToList(title, author, year, totalCopies, availableCopies);
             return 1;
-        } catch (WrongParamOfBookExcpetion e) {
+        } catch (WrongParamOfBookException e) {
             System.out.println(e.getMessage());
             return 0;
         }
@@ -130,10 +135,10 @@ public class Library {
         }
     }
 
-    public boolean checkUser(int userID) throws BookQuantityException {
+    private boolean checkUser(int userId) throws BookQuantityException {
         User tmpUser;
         try {
-            tmpUser = this.userList.getUserByID(userID);
+            tmpUser = this.userList.getUserByID(userId);
         } catch (UserNotFoundException e) {
             return false;
         }
@@ -143,7 +148,7 @@ public class Library {
         return true;
     }
 
-    public boolean checkBook(int bookId) throws BookQuantityException {
+    private boolean checkBook(int bookId) throws BookQuantityException {
         Book chBook;
         try {
             chBook = this.libraryList.getBookByID(bookId);
