@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.WrongParamOfBookExcpetion;
+import exceptions.WrongParamOfBookException;
 
 import java.time.Year;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -29,24 +29,24 @@ public class Book {
     public Book(String title, String author, int year, int totalCopies, int availableCopies) {
         this.id = count.incrementAndGet();
         if(title.isBlank()) {
-            throw new WrongParamOfBookExcpetion("Пустое название!");
+            throw new WrongParamOfBookException("Пустое название!");
         }
         this.title = title;
         if(author.isBlank()) {
-            throw new WrongParamOfBookExcpetion("У книги обязательно должен быть автор!");
+            throw new WrongParamOfBookException("У книги обязательно должен быть автор!");
         }
         this.author = author;
         if(year < 1950 || year > Year.now().getValue() ){
-            throw new WrongParamOfBookExcpetion("Это библиотека а не музей!");
+            throw new WrongParamOfBookException("Это библиотека а не музей!");
         }
         this.year = year;
         //мы библиотека кол-во книг больше 10 это странно
         if(totalCopies < 0 || totalCopies > 10) {
-            throw new WrongParamOfBookExcpetion("Переданно некорректное кол-во копий.");
+            throw new WrongParamOfBookException("Переданно некорректное кол-во копий.");
         }
             this.totalCopies = totalCopies;
         if (totalCopies < availableCopies || availableCopies < 0){
-            throw new WrongParamOfBookExcpetion("Переданно некорректное кол-во доступных копий.");
+            throw new WrongParamOfBookException("Переданно некорректное кол-во доступных копий.");
         }
         this.availableCopies = availableCopies;
     }
@@ -76,22 +76,16 @@ public class Book {
     }
 
     public String bookInfo() {
-        return this.title + " , " + this.author + ", " + this.year + "г.";
+        return this.title + " , " + this.author + ", " + this.year + "г." + "кол-во доступных копий: " + this.availableCopies;
     }
 
-    public String getBook(int copies) {
+    public void getBook(int copies) {
         if (this.availableCopies >= copies) {
             this.availableCopies -= copies;
         }
-        return "Взяли книгу: " + bookInfo();
     }
 
-    public String returnBook(int copies) {
-        if (copies > 0 && (copies + this.availableCopies) <= this.totalCopies) {
-            this.availableCopies += copies;
-        } else {
-            return "Книг больше чем было, лишнего не надо.";
-        }
-        return "Книги вернули, кол-во доступных книг: " + this.availableCopies;
+    public void returnBook() {
+        this.availableCopies ++;
     }
 }

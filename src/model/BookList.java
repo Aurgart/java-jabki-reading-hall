@@ -2,7 +2,9 @@ package model;
 
 import exceptions.BookNotFoundException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookList {
     Map<Integer, Book> bookList;
@@ -52,5 +54,14 @@ public class BookList {
             System.out.println("Id: " + entry.getKey() + " " + entry.getValue().bookInfo());
         }
     }
+
+    public Book getBookByID(int id) {
+        Book retBook = this.bookList.get(id);
+        if (retBook == null) {
+            throw new BookNotFoundException("Не найдено книги с ид: " + id);
+        }
+        return retBook;
+    }
+
 
 }
